@@ -2,7 +2,7 @@ import { useRef, useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import html2canvas from 'html2canvas-pro'
-import { Calendar, Clock, Download, ImageIcon, LocateIcon } from 'lucide-react'
+import { Calendar, Clock, Code2, Download, ImageIcon, LocateIcon, PaintBucket, Server } from 'lucide-react'
 
 function App() {
   const [name, setname] = useState()
@@ -32,82 +32,91 @@ function App() {
     fileInputRef.current.click();
   }
   const download = async () => {
-  if (divRef.current) {
-    const canvas = await html2canvas(divRef.current, { useCORS: true });
+    if (divRef.current) {
+      const canvas = await html2canvas(divRef.current, { useCORS: true });
 
-    canvas.toBlob((blob) => {
-      if (!blob) return;
+      canvas.toBlob((blob) => {
+        if (!blob) return;
 
-      const url = URL.createObjectURL(blob);
-      const link = document.createElement('a');
-      link.href = url;
-      link.download = (name || "devfest") + "-dp.png";
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-      URL.revokeObjectURL(url); // Clean up
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = (name || "devfest") + "-dp.png";
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        URL.revokeObjectURL(url); // Clean up
 
-    }, 'image/png');
-  }
-};
+      }, 'image/png');
+    }
+  };
 
 
 
   return (
-    <div className=" inset-0">
+    <div className=" w-screen">
       {/* Navigation */}
       <div className="flex w-full fixed top-0 left-0 right-0 p-4 z-[999999999] shadow justify-center items-center text-xl hover:cursor-pointer">
-        <nav className="w-full max-w-7xl items-center flex justify-between font-semibold ">
+        <nav className="w-full  max-w-7xl items-center flex justify-between font-semibold ">
           <div className="flex items-center gap-2">
-            <img src="/img/gdg-cloud.png" className='h-18 object-contain' alt="" />
+            <img src="/img/gdg-cloud.png" className='h-16  object-contain' alt="" />
 
           </div>
 
-          <div className="flex items-center justify-between gap-5 text-sm max-w-sm ">
+          <div className="hidden md:flex items-center justify-between gap-5 text-sm max-w-sm ">
             <div className="hidden md:block hover:cursor-pointer hover:font-bold underline underline-offset-4 text-green-600">Create my dp</div>
             <a target='_blank' href='https://gdg.community.dev/events/details/google-gdg-cloud-mbarara-presents-devfest-mbarara-2025/' className="hidden md:block  hover:cursor-pointer hover:font-bold ">About Devfest</a>
             <a target='_blank' href='https://gdg.community.dev/events/details/google-gdg-cloud-mbarara-presents-devfest-mbarara-2025/' className="hover:cursor-pointer hover:font-bold bg-green-600 shadow px-5 py-3 text-white">RSVP</a>
           </div>
         </nav>
       </div>
-      <div className="flex  z-20 justify-center items-center mt-24">
-        <div className=" h-sceen mt-24 mx-12 flex flex-col lg:flex-row items-center gap-2 lg:gap-24 justify-center max-w-7xl">
+      <div className="flex  z-20 justify-center items-center mt-12  md:mt-24">
+        <div className="mt-24  mx-12 flex flex-col lg:flex-row items-center gap-2 lg:gap-24 justify-center max-w-7xl">
           <div className=" flex flex-col gap  ">
-            <div className="text-4xl font-bold text-blue-500 mb-2">Devfest Mbarara, 2025</div>
-            <div className="text-5xl font-bold tracking-wide">Get your <span className='text-green-600' >devfest DP</span> </div>
+            <div className="text-6xl font-bold text-blue-500 mb-2">Devfest Mbarara, 2025</div>
+            <div className="text-7xl font-bold tracking-wide">Get your <span className='text-green-600' >devfest DP</span> </div>
             <div className="text-lg mt-2">Signed up for devfest? get your customised devfest dp</div>
-            <div className="flex flex-col md:flex-row  gap-4 items-center  mt-10 md:mt-8">
+
+            {/* Input fields */}
+            <div className="flex flex-col md:flex-row gap-4 items-center mt-10 md:mt-8">
               <div className="flex flex-col">
-                <label htmlFor="">Your profession</label>
-                <input type="text" className='w-full rounded outline-1 outline-gray-400  px-4 py-4' value={profession} onChange={(e) => setprofession(e.target.value)} placeholder='Your profession' />
+                <label htmlFor="profession">Your profession</label>
+                <div className={`m shaow-lg flex items-center border-1 border-gray-400 px-1 rounded transition-all duration-300 ${profession ? 'justify-end' : 'justify-start'}`}>
+                  <div className="bg-green-600 hover:bg-orange-400 rounded text-white hover:cursor-pointer px-4 py-3 my-1">
+                    Profession
+                  </div>
+                  <input type="text" id="profession" className='w-full ml-2 outline-none focus:outline-none' value={profession} onChange={(e) => setprofession(e.target.value)} placeholder='Your profession' />
+                </div>
               </div>
               <div className="flex flex-col">
-
-                <label htmlFor="">Your name</label>
-                <div className="m shaow-lg flex items-center border-1 border-gray-400 px-1 rounded ">
-
-                  <input type="text" className='w-full ml-2 outline-none focus:outline-none' value={name} onChange={(e) => setname(e.target.value)} placeholder='Your name' />
-                  <div className="bg-green-600  hover:bg-orange-400 rounded text-white hover:cursor-pointer px-4 py-3 my-1">
-                    Submit
+                <label htmlFor="name">Your name</label>
+                <div className={`m shaow-lg flex items-center border-1 border-gray-400 px-1 rounded transition-all duration-300 ${name ? 'justify-end' : 'justify-start'}`}>
+                  <div className="bg-green-600 hover:bg-orange-400 rounded text-white hover:cursor-pointer px-4 py-3 my-1">
+                    Name
                   </div>
+                  <input type="text" id="name" className='w-full ml-2 outline-none focus:outline-none' value={name} onChange={(e) => setname(e.target.value)} placeholder='Your name' />
                 </div>
               </div>
             </div>
 
-            <div className="flex gap-4 items-center my-4 ">
+            <div className="flex flex-col md:flex-row my-10 gap-4 items-center ">
               <input type="file" ref={fileInputRef} onChange={handleImageUpload} name="file-input" id="fileinput" className='hidden' accept='image/*' />
-              <button onClick={triggerFileUpload} className="my-10 bg-orange-500 flex py-4 px-4 w-full shadow text-white rounded hover:cursor-pointer "> <ImageIcon className="mr-4" /> Upload photo</button>
-              <button onClick={() => download()} className={`my-10 ${name && (profileImage != "/img/sample.webp") ? 'bg-green-500 text-white' : 'bg-gray-400 text-gray-300'} flex py-4 px-4 w-full shadow rounded hover:cursor-pointer `}>  <Download className="mr-4" /> Download dp</button>
+              <button onClick={triggerFileUpload} className=" bg-yellow-500 flex py-4 px-4 w-full shadow-lg text-white rounded hover:cursor-pointer "> <ImageIcon className="mr-4" /> Upload photo</button>
+              <button onClick={() => download()} className={` ${name && (profileImage != "/img/sample.webp") ? 'bg-green-500 text-white' : 'bg-gray-400 text-gray-300'} flex py-4 px-4 w-full shadow-lg rounded hover:cursor-pointer `}>  <Download className="mr-4" /> Download your dp</button>
+            </div>
+            <div className="flex justify-center items-center md:flex-row flex-col w-full text-wrap gap-1">
+              Powered by the good people of <a href="https://tailwindcss.com" target='_blank' className='text-blue-500 flex'> <Code2 className='mr-1'/> React JS,</a>  <a href="https://react.dev/" target='_blank' className='text-green-500 flex'> <PaintBucket className='mr-1'/> Tailwind css and</a>  <a href="https://render.com/" target='_blank' className='text-gray-600 flex'> <Server className='mr-1'/> Render</a>
             </div>
           </div>
-          <div ref={divRef} className="overflow-x-scroll size-[400px] md:size-[600px] border-1   md:flex flex-col p-4 px-8">
+
+          <div ref={divRef} className=" hidden md:size-[500px] border-1 mb-40   md:flex flex-col p-4 px-8">
             <div className="flex items-center  py-4">
               <img className='w-1/2 object-contain h-10' src="/img/gdg-cloud.png" alt="" />
               <img className='w-1/2 object-contain h-10' src="/img/wtm.jpeg" alt="" />
 
             </div>
             <hr className='h-0.5 w-full bg-gray-200' />
-            <div className=" h-[74%] items-center  flex ">
+            <div className=" h-[70%] items-center  flex ">
 
               {/* Person photo */}
 

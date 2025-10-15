@@ -1,16 +1,62 @@
-# React + Vite
+# DevFest Mbarara 2025 DP Generator
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Welcome to the official repository for the DevFest Mbarara 2025 Display Picture (DP) Generator! 🎉 This web application allows attendees to create a custom profile picture to show their excitement for the event.
 
-Currently, two official plugins are available:
+## 🚀 Key Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+* **Customizable DP**: Add your name, profession, and a profile photo.
+* **Easy to Use**: A simple and intuitive user interface.
+* **Instant Download**: Generate and download your custom DP with a single click.
 
-## React Compiler
+## 🛠️ Tech Stack
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+* **React**: The core JavaScript library for building the user interface.
+* **Vite**: A fast build tool for modern web development.
+* **Tailwind CSS**: A utility-first CSS framework for rapid styling.
+* **`html2canvas-pro`**: A powerful library to take a screenshot of the DP element and convert it into a downloadable image.
+* **Lucide React**: A set of beautiful and customizable icons.
 
-## Expanding the ESLint configuration
+## 🤝 Contributing
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+We welcome contributions from the community! Whether you want to fix a bug, improve the UI, or add a new feature, your help is appreciated. 
+
+**Here's how to contribute:**
+
+1.  **Fork the repository**: Click the "Fork" button at the top right of this page.
+2.  **Clone your forked repository**:
+    ```bash
+    git clone [https://github.com/YourUsername/devfest-mbarara-dp-generator.git](https://github.com/YourUsername/devfest-mbarara-dp-generator.git)
+    ```
+3.  **Create a new branch**:
+    ```bash
+    git checkout -b feature/your-feature-name
+    ```
+4.  **Make your changes and commit them**:
+    ```bash
+    git add .
+    git commit -m "feat: Add a new feature"
+    ```
+5.  **Push to your branch**:
+    ```bash
+    git push origin feature/your-feature-name
+    ```
+6.  **Open a Pull Request**: Go to your forked repository on GitHub and click the "New Pull Request" button.
+
+### Pull Request Guidelines
+
+* **Descriptive Titles**: Use a clear and concise title for your pull request (e.g., `feat: Add dark mode toggle`).
+* **Detailed Descriptions**: Explain the purpose of your changes, the problem it solves, and any new features you've added.
+* **Screenshots/Gifs**: If your changes involve UI updates, please include screenshots or a GIF.
+
+## 📄 License
+
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for more details.
+
+## 🙏 Acknowledgements
+
+* **React**: For making UI development a breeze.
+* **Vite**: For the blazing-fast developer experience.
+* **Tailwind CSS**: For simplifying styling and design.
+* **`html2canvas-pro`**: For the image generation magic.
+* **Render**: For hosting our application.
+
