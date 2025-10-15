@@ -51,7 +51,7 @@ function App() {
       <div className="flex w-full fixed top-0 left-0 right-0 p-4 z-[999999999] shadow justify-center items-center text-xl hover:cursor-pointer">
         <nav className="w-full max-w-7xl items-center flex justify-between font-semibold ">
           <div className="flex items-center gap-2">
-            <img src="/public/img/gdg-cloud.png" className='h-18 object-contain' alt="" />
+            <img src="/img/gdg-cloud.png" className='h-18 object-contain' alt="" />
 
           </div>
 
@@ -105,7 +105,7 @@ function App() {
 
               <div className="flex flex-col w-1/2  justify-start items-center ">
                 <div className="text-center w-full ">I will be attending</div>
-                <img src="/public/img/devfest.png" className='size-40 -mt-10 object-contain' alt="" />
+                <img src="/img/devfest.png" className='size-40 -mt-10 object-contain' alt="" />
                 {/* <div className="font-semibold w-full text-2xl">Devfest Mbarara</div>
               <div className="font-bold w-full text-3xl">2025</div> */}
                 <div className="flex flex-col gap-2 ">
