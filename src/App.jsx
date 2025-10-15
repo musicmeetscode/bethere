@@ -113,9 +113,9 @@ function App() {
                   <div className="flex items-center  gap-2">
                     <LocateIcon /> MUST, Kihumuro
                   </div> <div className="flex items-center gap-2">
-                    <Calendar /> 15th November, 20205
+                    <Calendar /> 15th November, 2025
                   </div> <div className="flex items-center gap-2">
-                    <Clock />  9AM-5PM
+                    <Clock />  8AM-5PM
                   </div>
                 </div>
 
