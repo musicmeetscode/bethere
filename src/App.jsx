@@ -31,19 +31,27 @@ function App() {
   const triggerFileUpload = () => {
     fileInputRef.current.click();
   }
-
   const download = async () => {
-    if (divRef.current) {
-      const canvas = await html2canvas(divRef.current)
-      const image = canvas.toDataURL('image/png')
-      const link = document.createElement('a')
-      link.href = image;
-      link.download = name + "-devfest.png"
-      document.body.appendChild(link)
-      link.click()
-      document.removeChild(link)
-    }
+  if (divRef.current) {
+    const canvas = await html2canvas(divRef.current, { useCORS: true });
+
+    canvas.toBlob((blob) => {
+      if (!blob) return;
+
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = (name || "devfest") + "-dp.png";
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      URL.revokeObjectURL(url); // Clean up
+
+    }, 'image/png');
   }
+};
+
+
 
   return (
     <div className=" inset-0">
@@ -88,11 +96,11 @@ function App() {
 
             <div className="flex gap-4 items-center my-4 ">
               <input type="file" ref={fileInputRef} onChange={handleImageUpload} name="file-input" id="fileinput" className='hidden' accept='image/*' />
-              <button onClick={triggerFileUpload} className="my-10 bg-orange-500 flex py-4 px-4 w-full shadow text-white rounded hover:cursor-pointer "> <ImageIcon className="mr-4"/> Upload photo</button>
-              <button onClick={() => download()} className={`my-10 ${name && (profileImage!="/img/sample.webp")?'bg-green-500 text-white':'bg-gray-400 text-gray-300'} flex py-4 px-4 w-full shadow rounded hover:cursor-pointer `}>  <Download className="mr-4"/> Download dp</button>
+              <button onClick={triggerFileUpload} className="my-10 bg-orange-500 flex py-4 px-4 w-full shadow text-white rounded hover:cursor-pointer "> <ImageIcon className="mr-4" /> Upload photo</button>
+              <button onClick={() => download()} className={`my-10 ${name && (profileImage != "/img/sample.webp") ? 'bg-green-500 text-white' : 'bg-gray-400 text-gray-300'} flex py-4 px-4 w-full shadow rounded hover:cursor-pointer `}>  <Download className="mr-4" /> Download dp</button>
             </div>
           </div>
-          <div ref={divRef} className="hidden size-[600px] border-1   md:flex flex-col p-4 px-8">
+          <div ref={divRef} className="overflow-x-scroll size-[400px] md:size-[600px] border-1   md:flex flex-col p-4 px-8">
             <div className="flex items-center  py-4">
               <img className='w-1/2 object-contain h-10' src="/img/gdg-cloud.png" alt="" />
               <img className='w-1/2 object-contain h-10' src="/img/wtm.jpeg" alt="" />
@@ -140,7 +148,7 @@ function App() {
               </div>
             </div>
             {/* Bottom cards */}
-            <div className="flex items-center justify-center  bg-yellow-500 w-full border rounded-full shadow-2xl px-4 py-2">
+            <div className="text-xs md:text-lg flex items-center justify-center  bg-yellow-500 w-full border rounded-full shadow-2xl px-4 py-2">
               Get your ticket: tinyurl/devfest-mbarara-2025
             </div>
           </div>
