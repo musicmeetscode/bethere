@@ -1,8 +1,10 @@
-import { useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import html2canvas from 'html2canvas-pro'
 import { Calendar, Clock, Code2, Download, ImageIcon, LocateIcon, PaintBucket, Server } from 'lucide-react'
+import { onValue, push, ref } from 'firebase/database'
+import { database } from './firebase'
 
 function App() {
   const [name, setname] = useState()
@@ -47,11 +49,27 @@ function App() {
         document.body.removeChild(link);
         URL.revokeObjectURL(url); // Clean up
 
+        const downloadRef = ref(database, 'downloads')
+        push(downloadRef, {
+          name: name || "Anonymous",
+          profession: profession || "Unknown",
+          timestamp:new Date().toISOString()
+          
+        })
+
       }, 'image/png');
     }
   };
 
 
+  const [downloadCount, setdownloadCount] = useState(0)
+  useEffect(() => {
+    const downloadRed = ref(database, 'downloads')
+    onValue(downloadRed, (snapshot) => {
+      const data = snapshot.val()
+      setdownloadCount(data ? Object.keys(data).length : 0)
+    })
+  }, [])
 
   return (
     <div className=" w-screen">
@@ -73,6 +91,7 @@ function App() {
       <div className="flex  z-20 justify-center items-center mt-12  md:mt-24">
         <div className="mt-24  mx-12 flex flex-col lg:flex-row items-center gap-2 lg:gap-24 justify-center max-w-7xl">
           <div className=" flex flex-col gap  ">
+            <div className="text-4xl font-light  mb-2">{downloadCount} downloads ..... and counting</div>
             <div className="text-6xl font-bold text-blue-500 mb-2">Devfest Mbarara, 2025</div>
             <div className="text-7xl font-bold tracking-wide">Get your <span className='text-green-600' >devfest DP</span> </div>
             <div className="text-lg mt-2">Signed up for devfest? get your customised devfest dp</div>
@@ -105,38 +124,40 @@ function App() {
               <button onClick={() => download()} className={` ${name && (profileImage != "/img/sample.webp") ? 'bg-green-500 text-white' : 'bg-gray-400 text-gray-300'} flex py-4 px-4 w-full shadow-lg rounded hover:cursor-pointer `}>  <Download className="mr-4" /> Download your dp</button>
             </div>
             <div className="flex justify-center items-center md:flex-row flex-col w-full text-wrap gap-1">
-              Powered by the good people of <a href="https://tailwindcss.com" target='_blank' className='text-blue-500 flex'> <Code2 className='mr-1'/> React JS,</a>  <a href="https://react.dev/" target='_blank' className='text-green-500 flex'> <PaintBucket className='mr-1'/> Tailwind css and</a>  <a href="https://render.com/" target='_blank' className='text-gray-600 flex'> <Server className='mr-1'/> Render</a>
+              Powered by the good people of <a href="https://tailwindcss.com" target='_blank' className='text-blue-500 flex'> <Code2 className='mr-1' /> React JS,</a>  <a href="https://react.dev/" target='_blank' className='text-green-500 flex'> <PaintBucket className='mr-1' /> Tailwind css and</a>  <a href="https://render.com/" target='_blank' className='text-gray-600 flex'> <Server className='mr-1' /> Render</a>
             </div>
           </div>
 
           <div ref={divRef} className=" size-[400px] md:size-[500px] border-1 mb-40   md:flex flex-col p-4 px-8">
             <div className="flex items-center  py-4">
-              <img className='w-1/2 object-contain h-10' src="/img/gdg-cloud.png" alt="" />
-              <img className='w-1/2 object-contain h-10' src="/img/wtm.jpeg" alt="" />
+              {['gdg.jpeg', 'github.png', 'must.jpg', 'sunbird.png', 'wtm.webp', 'kreative.jpeg',].map((logo, index) => {
+                return (<img src={`/logos/${logo}`} className="w-20 object-contain h-12" />)
+              })}
+              {/* <img className='w-1/2 object-contain h-10' src="/img/gdg-cloud.png" alt="" />
+              <img className='w-1/2 object-contain h-10' src="/img/wtm.jpeg" alt="" /> */}
 
             </div>
             <hr className='h-0.5 w-full bg-gray-200' />
-            <div className=" h-[70%] items-center  flex ">
-
-              {/* Person photo */}
-
-              <div className="flex flex-col w-1/2  justify-start items-center ">
-                <div className="text-center w-full mb-4 ">I will be attending</div>
-                <img src="/img/devfest.png" className='size-40 -mt-10 object-contain' alt="" />
-                {/* <div className="font-semibold w-full text-2xl">Devfest Mbarara</div>
+            <div className="relative h-[70%] items-center flex bg-contain bg-center bg-no-repeat">
+              <div className="absolute inset-0 bg-[url('/bg.png')] bg-contain bg-repeat opacity-10"></div>
+              <div className="flex  mt-20 mb">
+                <div className="flex flex-col w-1/2  justify-start items-center ">
+                  <div className="text-center w-full mb-4 ">I will be attending</div>
+                  <img src="/img/devfest.png" className='size-40 -mt-10 object-contain' alt="" />
+                  {/* <div className="font-semibold w-full text-2xl">Devfest Mbarara</div>
               <div className="font-bold w-full text-3xl">2025</div> */}
-                <div className="flex flex-col gap-2 ">
+                  <div className="flex flex-col gap-2 ">
 
-                  <div className="flex items-center  gap-2">
-                    <LocateIcon /> MUST, Kihumuro
-                  </div> <div className="flex items-center gap-2">
-                    <Calendar /> 15th November, 2025
-                  </div> <div className="flex items-center gap-2">
-                    <Clock />  8AM-5PM
+                    <div className="flex items-center  gap-2">
+                      <LocateIcon /> MUST, Kihumuro
+                    </div> <div className="flex items-center gap-2">
+                      <Calendar /> 15th November, 2025
+                    </div> <div className="flex items-center gap-2">
+                      <Clock />  8AM-5PM
+                    </div>
                   </div>
-                </div>
 
-                {/* <div className="bg-green-500 flex items-end justify-center z-50 border-1 rounded-2xl h-40 mt-12 w-4/5">
+                  {/* <div className="bg-green-500 flex items-end justify-center z-50 border-1 rounded-2xl h-40 mt-12 w-4/5">
                 <div className="h-32 bg-white w-3/4 border rounded-t-2xl ">
                   <div className="size-4 rounded-full border font-semibold text-4xl mx-auto -mt-1 bg-red-600"></div>
                   <div className="text-2xl text-center text-wrap">
@@ -148,13 +169,22 @@ function App() {
 
                 </div>
               </div> */}
-              </div>
-              <div className="w-1/2 h-3/5  flex flex-col  rounded-t-lg">
-                <img src={profileImage} className=' w-full border-1 rounded-t-xl mb-1 h-full object-cover ' alt="" />
-                <div className="text-2xl text-center font-semibold">{name ?? "Your name"}</div>
-                <div className="text-lg -mt-2 font-light text-center">{profession ?? "Your profession"}</div>
+                </div>
+                <div className="w-1/2 h-/5   flex flex-col  rounded-t-lg">
+                  <img src={profileImage} className=' w-full border-1 rounded-t-xl mb-1 h-2/3 object-cover ' alt="" />
+                  <div className="text-2xl text-center font-semibold">{name ?? "Your name"}</div>
+                  <div className="text-lg -mt-2 font-light text-center">{profession ?? "Your profession"}</div>
 
+                </div>
               </div>
+            </div>
+
+            <div className="h-[70%] items-center flex bg-[url('/bg.png')] bg-contain bg-white bg-blend-lighten ">
+
+
+              {/* Person photo */}
+
+
             </div>
             {/* Bottom cards */}
             <div className="text-xs md:text-lg flex items-center justify-center  bg-yellow-500 w-full border rounded-full shadow-2xl px-4 py-2">
