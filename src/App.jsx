@@ -109,7 +109,7 @@ function App() {
             </div>
           </div>
 
-          <div ref={divRef} className=" hidden md:size-[500px] border-1 mb-40   md:flex flex-col p-4 px-8">
+          <div ref={divRef} className=" size-[400px] md:size-[500px] border-1 mb-40   md:flex flex-col p-4 px-8">
             <div className="flex items-center  py-4">
               <img className='w-1/2 object-contain h-10' src="/img/gdg-cloud.png" alt="" />
               <img className='w-1/2 object-contain h-10' src="/img/wtm.jpeg" alt="" />
@@ -121,7 +121,7 @@ function App() {
               {/* Person photo */}
 
               <div className="flex flex-col w-1/2  justify-start items-center ">
-                <div className="text-center w-full ">I will be attending</div>
+                <div className="text-center w-full mb-4 ">I will be attending</div>
                 <img src="/img/devfest.png" className='size-40 -mt-10 object-contain' alt="" />
                 {/* <div className="font-semibold w-full text-2xl">Devfest Mbarara</div>
               <div className="font-bold w-full text-3xl">2025</div> */}
